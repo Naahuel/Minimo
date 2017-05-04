@@ -1,0 +1,466 @@
+// -----------------------------------
+// :: Funciones
+// -----------------------------------
+@function multiple-property-values ($props, $n) {
+  $value : '#{$props}';
+  @for $i from 2 through $n {
+    $value: '#{$value} , #{$props}';
+  }
+
+  @return unquote($value);
+}
+
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 16) * 1px;
+	font-size: $sizeValue * 1rem;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+// --------------------
+// :: Shadow
+// --------------------
+@mixin box-shadow($props...){
+  -webkit-box-shadow: $props;
+  -moz-box-shadow: $props;
+  box-shadow: $props;
+}
+
+// --------------------
+// :: Border Radius
+//---------------------
+@mixin border-radius($props...){
+-webkit-border-radius: $props;
+-moz-border-radius: $props;
+border-radius: $props;
+}
+
+// --------------------
+// :: Transition
+// --------------------
+@mixin transition($props){
+-webkit-transition: $props;
+ -moz-transition: $props;
+  -ms-transition: $props;
+   -o-transition: $props;
+      transition: $props;
+}
+@mixin transition-delay($delay){
+-webkit-transition-delay:  $delay;
+ -moz-transition-delay:  $delay;
+  -ms-transition-delay:  $delay;
+   -o-transition-delay:  $delay;
+      transition-delay:  $delay;
+}
+@mixin transition-property($props...){
+-webkit-transition-property:  $props;
+ -moz-transition-property:  $props;
+  -ms-transition-property:  $props;
+   -o-transition-property:  $props;
+      transition-property:  $props;
+}
+@mixin transition-duration($props...){
+-webkit-transition-duration:  $props;
+ -moz-transition-duration:  $props;
+  -ms-transition-duration:  $props;
+   -o-transition-duration:  $props;
+      transition-duration:  $props;
+}
+@mixin transition-timing-function($props...){
+-webkit-transition-timing-function:  $props;
+ -moz-transition-timing-function:  $props;
+  -ms-transition-timing-function:  $props;
+   -o-transition-timing-function:  $props;
+      transition-timing-function:  $props;
+}
+// --------------------
+// :: Transform
+// --------------------
+@mixin transform($props, $origin: 50% 50%){
+-webkit-transform: $props;
+ -moz-transform: $props;
+  -ms-transform: $props;
+   -o-transform: $props;
+      transform: $props;
+-webkit-transform-origin: $origin;
+ -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+   -o-transform-origin: $origin;
+      transform-origin: $origin;
+}
+
+// --------------------
+// :: Ocultar sin usar display: none;
+// --------------------
+@mixin hide{
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+
+// --------------------
+// :: Ocultar texto
+// --------------------
+@mixin hide_text{
+  overflow: hidden;
+  text-indent: -1000px;
+}
+
+// -----------------------------------
+// :: Hack para antialising de texto
+// -----------------------------------
+@mixin font_antialise($color: #000000, $opacity: 0.5){
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 0 1px rgba($color, $opacity);
+}
+
+// -----------------------------------
+// :: Borde de fuente
+// -----------------------------------
+@mixin text-outline($props, $repeticiones:20){
+  text-shadow: multiple-property-values($props, $repeticiones);
+}
+
+// -----------------------------------
+// :: Box sizing
+// -----------------------------------
+@mixin box-sizing($props: border-box){
+  -webkit-box-sizing: $props;
+     -moz-box-sizing: $props;
+          box-sizing: $props;
+}
+
+// -----------------------------------
+// :: Background clip
+// -----------------------------------
+@mixin background-clip($props: border){
+  -moz-background-clip: $props;     /* Firefox 3.6 */
+  -webkit-background-clip: $props;  /* Safari 4? Chrome 6? */
+  background-clip: #{$props}-box;
+}
+
+// -----------------------------------
+// :: Gradientes
+// -----------------------------------
+@mixin radial-gradient($color_start, $color_stop, $type:ellipse, $start: 0%, $stop: 100%){
+  background: $color_stop; /* Old browsers */
+  background: -moz-radial-gradient(center, $type cover,  $color_start $start, $color_stop $stop); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, $stop, color-stop($start,$color_start), color-stop($stop,$color_stop)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, $type cover,  $color_start $start,$color_stop $stop); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, $type cover,  $color_start $start,$color_stop $stop); /* Opera 12+ */
+  background: -ms-radial-gradient(center, $type cover,  $color_start $start,$color_stop $stop); /* IE10+ */
+  background: radial-gradient($type at center,  $color_start $start,$color_stop $stop); /* W3C */
+}
+@mixin linear-gradient($color_start, $color_stop){
+  background: $color_stop; /* Old browsers */
+  background: -moz-linear-gradient(top, $color_start 0%, $color_stop 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color_start), color-stop(100%,$color_stop)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $color_start 0%,$color_stop 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $color_start 0%,$color_stop 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $color_start 0%,$color_stop 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $color_start 0%,$color_stop 100%); /* W3C */
+}
+
+@mixin linear-gradient-triple($color_start, $color_stop, $start_1, $end_1, $start_2, $end_2){
+  background: $color_stop;
+  background: -moz-linear-gradient(left,  $color_stop $start_1, $color_start $end_1, $color_start $start_2, $color_stop $end_2);
+  background: -webkit-gradient(linear, left top, right top, color-stop($start_1,$color_stop), color-stop($end_1,$color_start), color-stop($start_2,$color_start), color-stop($end_2,$color_stop));
+  background: -webkit-linear-gradient(left,  $color_stop $start_1,$color_start $end_1,$color_start $start_2,$color_stop $end_2);
+  background: -o-linear-gradient(left,  $color_stop $start_1,$color_start $end_1,$color_start $start_2,$color_stop $end_2);
+  background: -ms-linear-gradient(left,  $color_stop $start_1,$color_start $end_1,$color_start $start_2,$color_stop $end_2);
+  background: linear-gradient(to right,  $color_stop $start_1,$color_start $end_1,$color_start $start_2,$color_stop $end_2);
+}
+
+@mixin linear-gradient-triple-vertical($color_start, $color_stop, $punto_inicio, $punto_medio, $punto_final){
+  background: $color_start; /* Old browsers */
+  background: -moz-linear-gradient(top, $color_start $punto_inicio, $color_start $punto_medio, $color_stop $punto_final); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop($punto_inicio,$color_start), color-stop($punto_medio,$color_start), color-stop($punto_final,$color_stop)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $color_start $punto_inicio,$color_start $punto_medio,$color_stop $punto_final); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $color_start $punto_inicio,$color_start $punto_medio,$color_stop $punto_final); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $color_start $punto_inicio,$color_start $punto_medio,$color_stop $punto_final); /* IE10+ */
+  background: linear-gradient(to bottom, $color_start $punto_inicio,$color_start $punto_medio,$color_stop $punto_final); /* W3C */
+}
+
+
+// -----------------------------------
+// :: Hyphens
+// -----------------------------------
+@mixin hyphens($props: auto){
+  -webkit-hyphens: $props;
+  -moz-hyphens: $props;
+  hyphens: $props;
+}
+
+// -----------------------------------
+// :: Columns
+// -----------------------------------
+@mixin column($cant, $sep, $rule-w: none, $rule-s: auto, $rule-c: auto){
+   -moz-column-count: $cant;
+   -moz-column-gap: $sep;
+   -webkit-column-count: $cant;
+   -webkit-column-gap: $sep;
+   column-count: $cant;
+   column-gap: $sep;
+   -webkit-column-rule-width:$rule-w;
+   -moz-column-rule-width:$rule-w;
+   column-rule-width:$rule-w;
+   -webkit-column-rule-style: $rule-s;
+   -moz-column-rule-style: $rule-s;
+   column-rule-style: $rule-s;
+   -webkit-column-rule-color: $rule-c;
+   -moz-column-rule-color: $rule-c;
+   column-rule-color: $rule-c;
+   column-fill: balance;
+   -moz-column-fill: balance;
+   -webkit-column-fill: balance;
+}
+
+
+// -----------------------------------
+// :: Calc
+// -----------------------------------
+@mixin calc($property, $expression) {
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+// -----------------------------------
+// :: Keyframes
+// -----------------------------------
+/*------------------------------------
+| Se declaran las variables browser
+| como variables globales para poder
+| usarlas al llamar el mixin.
+|
+| @include keyframes(animacionTest) {
+|   0% {
+|     #{browser}transform: scale(0.3);
+|     width: 100px;
+|   } 10% {
+|     #{browser}transform: scale(0.3);
+|     width: 150px;
+|   }
+| }
+|
+| No interfiere con el resto de los
+| parámetros si no se hace uso de la
+| misma.
+|-----------------------------------*/
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    $browser: '-webkit-' !global;
+      @content;
+  }
+  @-moz-keyframes #{$name} {
+    $browser: '-moz-' !global;
+      @content;
+  }
+  @-ms-keyframes #{$name} {
+    $browser: '-ms-' !global;
+      @content;
+  }
+  @-o-keyframes #{$name} {
+    $browser: '-o-' !global;
+      @content;
+  }
+  @keyframes #{$name} {
+    $browser: '' !global;
+      @content;
+  }
+} $browser: null;
+
+// -----------------------------------
+// :: Animation
+// -----------------------------------
+
+@mixin animation($atts) {
+  animation: $atts;
+  -webkit-animation: $atts;
+}
+
+@mixin play_state($state) {
+  animation-play-state: $state;
+  -webkit-animation-play-state: $state;
+}
+
+// ----------------------------------
+// :: Potencia
+// ----------------------------------
+@function pow($number, $exp) {
+  $value: 1;
+  @if $exp > 0 {
+    @for $i from 1 through $exp {
+      $value: $value * $number;
+    }
+  }
+  @else if $exp < 0 {
+    @for $i from 1 through -$exp {
+      $value: $value / $number;
+    }
+  }
+  @return $value;
+}
+
+// ----------------------------------
+// :: Raíx Cuadrada
+// ----------------------------------
+@function approximateSq($num, $approx) {
+  $root : (( $num / $approx ) + $approx) / 2;
+  @return $root;
+}
+
+@function sqrt($num) {
+  $root:0;
+  $testRoot : 0;
+  $upperBounds : round($num / 2) + 1; //never need over half the main number. Add one just to be sure!
+  // $loops : $upperBounds;
+  @for $test from 2 through $upperBounds {
+    $sq : $test * $test;
+    @if $sq <= $num {
+      $testRoot : $test;
+    }
+  }
+
+  $root : (approximateSq($num, $testRoot));
+
+  @return $root;
+}
+// ----------------------------------
+// :: Factorial
+// ----------------------------------
+@function fact($number) {
+  $value: 1;
+  @if $number > 0 {
+    @for $i from 1 through $number {
+      $value: $value * $i;
+    }
+  }
+  @return $value;
+}
+
+// ----------------------------------
+// :: Trigonometria
+// ----------------------------------
+@function pi() {
+  @return 3.14159265359;
+}
+
+@function rad($angle) {
+  $unit: unit($angle);
+  $unitless: $angle / ($angle * 0 + 1);
+  // If the angle has 'deg' as unit, convert to radians.
+  @if $unit == deg {
+    $unitless: $unitless / 180 * pi();
+  }
+  @return $unitless;
+}
+
+@function sin($angle) {
+  $sin: 0;
+  $angle: rad($angle);
+  // Iterate a bunch of times.
+  @for $i from 0 through 10 {
+    $sin: $sin + pow(-1, $i) * pow($angle, (2 * $i + 1)) / fact(2 * $i + 1);
+  }
+  @return $sin;
+}
+
+@function cos($angle) {
+  $cos: 0;
+  $angle: rad($angle);
+  // Iterate a bunch of times.
+  @for $i from 0 through 10 {
+    $cos: $cos + pow(-1, $i) * pow($angle, 2 * $i) / fact(2 * $i);
+  }
+  @return $cos;
+}
+
+@function tan($angle) {
+  @return sin($angle) / cos($angle);
+}
+
+//--------------
+// Inversas
+//--------------
+$__default-threshold: pi()/180/20;
+
+@function convert-angle($value, $unit-name) {
+  $factors: (
+    rad: 1rad,
+    deg: 180deg/pi(),
+    grad: 200grad/pi(),
+    turn: .5turn/pi()
+  );
+
+  @if not unitless($value) {
+    @warn '`#{$value}` should be unitless';
+    @return false;
+  }
+
+  @if not map-has-key($factors, $unit-name) {
+    @warn 'unit `#{$unit-name}` is not a valid unit - please make sure it is either `deg`, `rad`, `grad` or `turn`';
+    @return false;
+  }
+
+  @return $value*map-get($factors, $unit-name);
+}
+
+@function asin($z, $unit-name: deg, $threshold: $__default-threshold) {
+  $sum: 0;
+  $complement: false;
+  $sign: if($z != 0, $z/abs($z), 1);
+  $z: abs($z);
+
+  @if $z > 1 {
+    @warn 'illegal `#{$z}` value for function';
+    @return false;
+  }
+
+  @if $z > sin(pi()/4) {
+    $complement: true;
+    $z: sqrt(1 - pow($z, 2));
+  }
+
+  $term: $z;
+  $i: 0;
+  $k: 1;
+
+  @while $term > $threshold {
+    $sum: $sum + $term;
+
+    $i: $i + 1;
+    $k: $k*(2*$i - 1)/(2*$i);
+    $j: 2*$i + 1;
+
+    $term: $k*pow($z, $j)/$j;
+  }
+
+  @return convert-angle($sign*(if($complement, pi()/2 - $sum, $sum)), $unit-name);
+}
+
+@function acos($z, $unit-name: deg, $threshold: $__default-threshold) {
+  @return convert-angle(pi()/2, $unit-name) - asin($z, $unit-name, $threshold);
+}
+
+@function atan($z, $unit-name: deg, $threshold: $__default-threshold) {
+  @return asin($z/sqrt(1 + pow($z, 2)), $unit-name, $threshold);
+}

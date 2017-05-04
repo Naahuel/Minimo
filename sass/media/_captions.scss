@@ -7,10 +7,11 @@
 	}
 
 	.wp-caption-text {
-		margin: 0.8075em 0;
+		margin: 0.4075em 0;
 	}
 }
 
 .wp-caption-text {
-	text-align: center;
+	text-align: left;
+	@include font-size(.8);
 }

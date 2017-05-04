@@ -1,3 +1,4 @@
+// Defaults
 .sticky {
 	display: block;
 }
@@ -25,4 +26,19 @@
 .page-links {
 	clear: both;
 	margin: 0 0 1.5em;
+}
+
+// Entry Meta and footer
+.entry-meta,
+.entry-footer{
+	border-top: 1px solid $color__background-hr;
+	border-bottom: 1px solid $color__background-hr;
+	padding: 1em 0;
+	text-transform: uppercase;
+	@include font-size(.8);
+
+	a{
+		color: $color__text-main;
+		font-weight: 700;
+	}
 }

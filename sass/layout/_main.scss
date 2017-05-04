@@ -1,0 +1,6 @@
+#content{
+  max-width: $size__site-main;
+  padding-right: $padding__site-main;
+  padding-left: $padding__site-main;
+  @include center-block;
+}
